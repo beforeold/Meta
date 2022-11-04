@@ -1,7 +1,9 @@
 # Meta
+A swift codable wrapper which supports codable for dictionary associated with a model
 
+# Usage
 
-use as model + dictionary
+Case 1: use as model + dictionary.
 ```Swift
 struct Student: Decodable {
   struct Book: Decodable {
@@ -18,9 +20,7 @@ let bookDictionary = student.$book
 
 ```
 
-
-
-if you want to delare a dictionary property, try:
+Case 2: declare a dictionary property, try:
 ```Swift
 struct Foo: Decodable {
   @Metable

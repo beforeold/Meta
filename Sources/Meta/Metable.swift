@@ -2,7 +2,7 @@
 
 import Foundation
 
-// MARK: - Meta Codable
+// MARK: - Metable Codable
 /// an empty model WITHOUT any property
 public struct EmptyModel: Codable {
   private init() { }
@@ -89,5 +89,5 @@ extension Metable: Encodable {
   }
 }
 
-/// typealias for Meta without any model
+/// typealias for Metable without any model
 public typealias MetaDict = Metable<EmptyModel>
