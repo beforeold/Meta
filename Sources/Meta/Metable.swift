@@ -12,6 +12,7 @@ public struct EmptyModel: Codable {
 }
 
 /// a wrapper which decode json with both model and dict as results
+@propertyWrapper
 public struct Metable<Model: Decodable> {
     public var model: Model
     public var dict: [String: Any]
@@ -19,6 +20,38 @@ public struct Metable<Model: Decodable> {
     public init(model: Model, dict: [String: Any]) {
         self.model = model
         self.dict = dict
+    }
+    
+    public init(wrappedValue: Model, dict: [String: Any]) {
+        self.model = wrappedValue
+        self.dict = dict
+    }
+
+    public var wrappedValue: Model {
+        get {
+            self.model
+        }
+        
+        set {
+            self.model = newValue
+        }
+    }
+    
+    public var projectedValue: [String: Any] {
+        return self.dict
+    }
+}
+
+extension Metable where Model: Encodable {
+    public init(wrappedValue: Model) {
+        self.model = wrappedValue
+        
+        if let data = try? JSONEncoder().encode(wrappedValue),
+           let metaDict = try? JSONDecoder().decode(MetaDict.self, from: data) {
+            self.dict = metaDict.dict
+        } else {
+            self.dict = [:]
+        }
     }
 }
 
