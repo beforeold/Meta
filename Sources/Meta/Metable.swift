@@ -27,6 +27,7 @@ public struct Metable<Model: Decodable> {
     self.dict = dict
   }
   
+  /// support direct acccess the model, such as student.book, instead of student.brook.model
   public var wrappedValue: Model {
     get {
       self.model
@@ -37,6 +38,7 @@ public struct Metable<Model: Decodable> {
     }
   }
   
+  /// support $ sign. like student.$book, instead of student.book.dict
   public var projectedValue: [String: Any] {
     return self.dict
   }
