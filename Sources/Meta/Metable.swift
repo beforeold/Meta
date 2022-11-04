@@ -17,13 +17,9 @@ public struct Metable<Model: Decodable> {
   public var model: Model
   public var dict: [String: Any]
   
+  /// create a new instance with model and dictionary, the dictionay is expecting more info then the model
   public init(model: Model, dict: [String: Any]) {
     self.model = model
-    self.dict = dict
-  }
-  
-  public init(wrappedValue: Model, dict: [String: Any]) {
-    self.model = wrappedValue
     self.dict = dict
   }
   
@@ -41,19 +37,6 @@ public struct Metable<Model: Decodable> {
   /// support $ sign. like student.$book, instead of student.book.dict
   public var projectedValue: [String: Any] {
     return self.dict
-  }
-}
-
-extension Metable where Model: Encodable {
-  public init(wrappedValue: Model) {
-    self.model = wrappedValue
-    
-    if let data = try? JSONEncoder().encode(wrappedValue),
-       let metaDict = try? JSONDecoder().decode(MetaDict.self, from: data) {
-      self.dict = metaDict.dict
-    } else {
-      self.dict = [:]
-    }
   }
 }
 
