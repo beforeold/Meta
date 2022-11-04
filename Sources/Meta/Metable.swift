@@ -74,6 +74,15 @@ extension Metable: Decodable {
 
 extension Metable: Encodable {
   public func encode(to encoder: Encoder) throws {
+    if dict.isEmpty {
+      // if dict is empty, try to cast and encode the model
+      if let encodableModel = model as? Encodable {
+        var container = encoder.singleValueContainer()
+        try container.encode(encodableModel)
+        return
+      }
+    }
+    
     // encode with the dictionary instead of model
     var container = encoder.container(keyedBy: JSONCodingKeys.self)
     try container.encode(dict)
