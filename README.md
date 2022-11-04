@@ -4,15 +4,15 @@
 use as model + dictionary
 ```Swift
 struct Student: Decodable {
-  struct Book {
+  struct Book: Decodable {
     var page: Int
-}
+  }
   
   @Metable
   var model: Book
 }
 
-// usage
+// usage for model and dictionary
 let book = student.book
 let bookDictionary = student.$book
 
@@ -27,7 +27,7 @@ struct Foo: Decodable {
   var iamdict: EmptyModel
 }
 
-// usage
+// usage for dictionary only
 let dict = foo.$iamdict
 
 ```

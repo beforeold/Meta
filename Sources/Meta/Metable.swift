@@ -89,5 +89,5 @@ extension Metable: Encodable {
   }
 }
 
-/// typealias for Meta without amy model
+/// typealias for Meta without any model
 public typealias MetaDict = Metable<EmptyModel>
